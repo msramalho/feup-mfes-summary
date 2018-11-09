@@ -1,4 +1,4 @@
-# feup-mfes-summary
+# Feup Mfes Summary
 Some useful scripts
 
 ### Execute custom examples
