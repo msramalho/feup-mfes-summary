@@ -3,6 +3,7 @@ Some useful scripts
 
 ### Execute custom examples
 1. Considerando as relações A e B indique o valor das expressões em Alloy:
+
 `A = {(a0,d0), (b0,a0), (b1,c1),(d0,d4),(d4,b1) }`
  * a. {(a0),(b1)} <: A
  * b. {(a0)}.^A 
