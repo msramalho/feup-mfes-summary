@@ -1,5 +1,10 @@
-# Feup MFES Summary (Alloy)
-
+# Feup MFES Summary (Alloy only)
+```als
+all exercise : Mfes.alloy | some exercise in Repo and no exercise.responsibility & Me.responsibilities
+```
+	
+ 1. [Execute custom examples](#execute-custom-examples)
+ 1. [Alloy4fun Exercises](#alloy4fun-exercises)
 ## Execute custom examples
 1. Considerando as relações A e B indique o valor das expressões em Alloy:
 
