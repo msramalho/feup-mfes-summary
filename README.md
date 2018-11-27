@@ -172,10 +172,11 @@ pred Inv3 {// Only enrolled students can have a grade in a course
 }
 pred Inv4 {// Each student enrolled in a course belongs to exactly one of its teams
     all c : Course | all s : c.enrolled | one c.teams & members.s
+	//all c : Course , s : c.enrolled | one c.teams & members.s
 }
 pred Inv5 {// All members of a team that already have been graded have the same grade
-all c : Course | all s1, s2 : c.enrolled | c.teams & members.s1 = c.teams & members.s2
-    and s1+s2 in c.grade.Grade => c.grade[s1] = c.grade[s2]
+    all c : Course | all s1, s2 : c.enrolled | c.teams & members.s1 = c.teams & members.s2
+        and s1+s2 in c.grade.Grade => c.grade[s1] = c.grade[s2]
 }
 ```
 
@@ -197,7 +198,8 @@ pred Inv2 {// A block pointer is one of its allocated addresses
     all b : Block | all a : Addr | b->a in pointer => a.allocated = b
 }
 pred Inv3 {// All memory addresses allocated to a block are contiguous 
-    all b : Block | #allocated.b>1 => all a1 : allocated.b | one a2 : allocated.b - a1 | a2 = next[a1] or a2 = prev[a1]
+    all b : Block | #allocated.b>1 => all a1 : allocated.b | 
+    one a2 : allocated.b - a1 | a2 = next[a1] or a2 = prev[a1]
 }
 pred Inv4 {// The pointer to a block is smaller then all its allocated addresses
     all b : Block | all a: allocated.b - b.pointer | lt[b.pointer, a]
