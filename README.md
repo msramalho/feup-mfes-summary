@@ -45,7 +45,7 @@ sig Department{}
 one sig Company {
 	isDirectorOf: Employee -> Department
 }
-//write a prediate Quizz to check that
+// write a prediate Quizz to check that
 pred Quizz {
 	// In a company, each department has exactly one director (chosen among 
 	// the company's employees), but each employee can only be the director 
