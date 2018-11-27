@@ -3,9 +3,9 @@
 all exercise : Mfes.alloy | some exercise in Repo and no exercise.responsibility & Me.responsibilities
 ```
 	
- 1. [Execute custom examples](#execute-custom-examples)
+ 1. [Execute custom examples](#custom-examples)
  1. [Alloy4fun Exercises](#alloy4fun-exercises)
-## Execute custom examples
+## Custom examples
 1. Considerando as relações A e B indique o valor das expressões em Alloy:
 
 `A = {(a0,d0), (b0,a0), (b1,c1),(d0,d4),(d4,b1) }`
