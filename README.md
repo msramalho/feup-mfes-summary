@@ -26,7 +26,7 @@ sig Rel {
 
 run { }
 ```
-Depois `execute`, na janela de execution ver a tab `executor` e escrever lá o query, por exemplo: `{A0 + D0} <: Rel.r`
+Depois `execute`, na janela de execution ver a tab `evaluator` e escrever lá o query, por exemplo: `{A0 + D0} <: Rel.r`
 
 ## Alloy4fun Exercises
 
