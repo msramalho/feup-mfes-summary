@@ -115,6 +115,8 @@ pred Quizz {
     // if a student has a Course, that Course must be enrolled by the Student  
     // and vice-versa
     courses = ~enrolled
+    // or, with a locally defined variable
+    // let x = (courses & ~enrolled) | courses = x and enrolled = ~x
 }
 ```
 
