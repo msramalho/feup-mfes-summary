@@ -147,6 +147,8 @@ pred Inv1 {// A phone number cannot belong to two different contacts
 }
 pred Inv2 {// Every called number belongs to a contact
     Call.number in Contact.phones
+    // or
+    all n : Call.number | n in Contact.phones
 }
 pred Inv3 {// Simultaneous calls cannot exist
     all disj c1,c2: Call | c1.time != c2.time
