@@ -227,6 +227,7 @@ pred Inv2 {// A block pointer is one of its allocated addresses
     ~pointer in allocated
 }
 pred Inv3 {// All memory addresses allocated to a block are contiguous 
+    // this is quite dubious but, so the condition is probably wrong...
     all b : Block, x,y : allocated.b | (x.nexts & y.prevs) in allocated.b
 }
 pred Inv4 {// The pointer to a block is smaller then all its allocated addresses
