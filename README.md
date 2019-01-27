@@ -218,13 +218,16 @@ sig Block {// Each allocated memory block has a pointer
 }
 pred Inv1 {// Each memory address is either free or allocated to a block
     all a : Addr | (a in Free and no a.allocated) or (a not in Free and one a.allocated)
+    // or
+    let aloc = (Block.pointer + allocated.Block) | no Free & aloc and Free+aloc=Addr
 }
 pred Inv2 {// A block pointer is one of its allocated addresses
     all b : Block | all a : Addr | b->a in pointer => a.allocated = b
+    // or 
+    ~pointer in allocated
 }
 pred Inv3 {// All memory addresses allocated to a block are contiguous 
-    all b : Block | #allocated.b>1 => all a1 : allocated.b | 
-    one a2 : allocated.b - a1 | a2 = next[a1] or a2 = prev[a1]
+    all b : Block, x,y : allocated.b | (x.nexts & y.prevs) in allocated.b
 }
 pred Inv4 {// The pointer to a block is smaller then all its allocated addresses
     all b : Block | all a: allocated.b - b.pointer | lt[b.pointer, a]
