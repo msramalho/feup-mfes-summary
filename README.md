@@ -195,14 +195,13 @@ pred Inv4 {// Each student enrolled in a course belongs to exactly one of its te
 pred Inv5 {// All members of a team that already have been graded have the same grade
     all c : Course | all s1, s2 : c.enrolled | c.teams & members.s1 = c.teams & members.s2
 	and s1+s2 in c.grade.Grade => c.grade[s1] = c.grade[s2]
-   // or
-   all c : Course, t : c.teams, disj s1,s2 : t.members | 
-   	one c.grade[s1] and one c.grade[s2] => c.grade[s1] = c.grade[s2]
    // or 
    all c : Course, t : c.teams, disj s1,s2 : t.members |
    	s1+s2 in c.grade.Grade => c.grade[s1] = c.grade[s2]
    // or 
    all c : Course, t : c.teams, disj a, b : (c.grade[t.members]) | a = b
+   // or 
+   all c : Course, t : c.teams | lone c.grade[t.members]
 }
 ```
 
