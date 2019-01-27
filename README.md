@@ -151,10 +151,12 @@ pred Inv2 {// Every called number belongs to a contact
     all n : Call.number | n in Contact.phones
 }
 pred Inv3 {// Simultaneous calls cannot exist
+    #Call.time = #time
+    // or
     all disj c1,c2: Call | c1.time != c2.time
 }
 pred Inv4 {// All calls were made in the past
-    all c: Call | c.time in prevs[Now]
+    all c: Call | c.time in prevs[Now] // or Now.prevs
 }
 ```
 
