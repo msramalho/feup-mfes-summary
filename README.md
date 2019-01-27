@@ -142,6 +142,8 @@ sig Call {
 // specifying a given invariant you can assume the others to be true.
 pred Inv1 {// A phone number cannot belong to two different contacts
     all disj c1,c2:Contact | no (c1.phones & c2.phones)
+    // or
+    all n : Number | lone phones.n
 }
 pred Inv2 {// Every called number belongs to a contact
     Call.number in Contact.phones
