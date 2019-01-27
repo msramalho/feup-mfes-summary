@@ -5,6 +5,7 @@ all exercise : Mfes.alloy | some exercise in Repo and no exercise.responsibility
 	
  1. [Execute custom examples](#custom-examples)
  1. [Alloy4fun Exercises](#alloy4fun-exercises)
+ 1. External link: [Alloy Cheatsheet](https://www.monperrus.net/martin/alloy-quick-ref.pdf)
 ## Custom examples
 1. Considerando as relações A e B indique o valor das expressões em Alloy:
 
