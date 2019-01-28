@@ -220,6 +220,8 @@ pred Inv1 {// Each memory address is either free or allocated to a block
     all a : Addr | (a in Free and no a.allocated) or (a not in Free and one a.allocated)
     // or
     let aloc = (Block.pointer + allocated.Block) | no Free & aloc and Free+aloc=Addr
+    // or
+    Addr = Free + allocated.Block and no Free & allocated.Block
 }
 pred Inv2 {// A block pointer is one of its allocated addresses
     all b : Block | all a : Addr | b->a in pointer => a.allocated = b
@@ -280,6 +282,8 @@ pred Inv2 {// All classes except Object have a superclass
 }
 pred Inv3 {// A class cannot declare two instance variables with the same name
     all c: Class | all disj v1,v2 : c.vars | v1.name!=v2.name
+    // or
+    all c: Class | #c.vars = #c.vars.name
 }
 pred Inv4 {// A class cannot inherit from itself
     all c : Class | no c & c.^super
@@ -305,9 +309,13 @@ sig Article {
 sig Accepted in Article {}
 pred Inv1 {// Each article has at most one review by each person
     all a : Article | #a.reviews = #a.reviews.Decision
+    // or
+    #reviews.Decision = #reviews
 }
 pred Inv2 {// An article cannot be reviewed by its authors
     all a : Article | no a.authors & a.reviews.Decision
+    // or
+    no authors & reviews.Decision
 }
 pred Inv3 {// All accepted articles must have at least one review
     all a : Accepted | some a.reviews
@@ -338,9 +346,13 @@ sig Robot {// Robots work somewhere in the production line
 }
 pred Inv1 {// A component requires at least one part
     all c : Component | some c.parts
+    // or
+    Component = parts.Product
 }
 pred Inv2 {// A component cannot be a part of itself
-    all c : Component | c not in c.^parts 
+    all c : Component | c not in c.^parts
+    // or
+    no iden & ^parts
 }
 pred Inv3 {// The position where a component is assembled must have at least one robot
     Component.position in Robot.position
@@ -373,6 +385,8 @@ sig Work {
 }
 pred Inv1 {
     all u : User | u.visible in u.profile
+    // or
+    visible in profile
 }
 pred Inv2 {// A user profile can only have works added by himself or some external institution
     all u : User | all w : u.profile | w.source in u + Institution
@@ -395,10 +409,14 @@ pred Inv4 {// The profile of a user cannot have two visible versions of the same
 pred Dag {
     // a direct acyclic graph
     all n : Node | n not in n.^Edge
+    // or 
+    no iden & ^Edge
 }
 pred Ring {
     // The graph is a single ring, with edges pointing to successors
     all n : Node | Node = n.^Edge and #Edge = #Node
+    // or 
+    #Edge = #Node and Node -> Node in ^Edge
 }
 pred Tree {
     // The graph is a single tree, with edges pointing to parents
@@ -435,6 +453,8 @@ sig Graph{
 pred Insere[g:Graph,p1: Point, p2:Point,g':Graph] {
     // that inserts an arrow in a Graph g and returns the result in a Graph g'
     g'.edge = g.edge ++ p1->(g.edge[p1] + p2)
+    // or
+    g'.edge = g.edge + (p1 -> p2)
 }
 ```
 
@@ -451,6 +471,11 @@ and "nonseparable" graph, meaning that if any one vertex were to be removed,
 the graph will remain connected. Therefore a biconnected graph has no articulation 
 vertices  */
     all p0 : Point, disj p1,p2 : (e.Point + e[Point] - p0) | p1 in p2.^remedge[edge, p0]
+    // or
+    all p: Point | connected[Point-p, remedge[edge, p]]
+}
+pred connected [p: Point, e: edge] {
+    p -> p in ^e
 }
 fun remedge [ e: edge, p0:Point] : set edge{
     e - p0->Point - Point->p0
