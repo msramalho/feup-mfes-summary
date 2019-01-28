@@ -319,9 +319,13 @@ pred Inv2 {// An article cannot be reviewed by its authors
 }
 pred Inv3 {// All accepted articles must have at least one review
     all a : Accepted | some a.reviews
+    // or
+    Accepted in reviews.Decision.Person
 }
 pred Inv4 {// All articles with an Accept decision are automatically accepted
     all a : Article | some a.reviews.Accept => a in Accepted
+    // or
+    reviews.Accept.Person in Accepted
 }
 ```
 
@@ -390,6 +394,8 @@ pred Inv1 {
 }
 pred Inv2 {// A user profile can only have works added by himself or some external institution
     all u : User | all w : u.profile | w.source in u + Institution
+    // or
+    profile.source in (iden + User->Institution)
 }
 pred Inv3 {// The works added to a profile by a given source cannot have common identifiers
     all u : User | all disj w1, w2 : u.profile | w1.source = w2.source => no w1.ids & w2.ids
